@@ -52,6 +52,9 @@ alias cleanup='sudo apt autoclean && sudo apt autoremove'
 # Exiting the shorter way
 alias q='exit'
 
+# Clean project (AKA fresh start:)
+alias wipe='find \( -name "target" -or -name "*.iml" -or -name ".idea" \) -prune -exec rm -rf {} \;'
+
 function __mkcd() {
 	mkdir --parents "$1" && cd "$_"
 }

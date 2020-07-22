@@ -6,6 +6,7 @@ packages="
 	gimp
 	git
 	gitk
+	glogg
 	gnome-tweak-tool
 	gparted
 	hardinfo
@@ -18,6 +19,7 @@ packages="
 	python-pip
 	python3-pip
 	shutter
+	sshfs
 	tree
 	"
 
