@@ -56,7 +56,7 @@ alias q='exit'
 alias wipe='find \( -name "target" -or -name "*.iml" -or -name ".idea" \) -prune -exec rm -rf {} \;'
 
 # Basic rsync flags; protip: use dry run first ('-n' flag)
-alias backup='rsync -av --delete'
+alias backup='rsync -amv --delete'
 
 function __mkcd() {
 	mkdir --parents "$1" && cd "$_"
