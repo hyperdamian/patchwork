@@ -11,14 +11,6 @@ alias ..='cd ../'
 alias ...='cd ../../'
 alias ....='cd ../../../'
 
-# Make directory (with parents) and enter it
-#
-# $ cd /tmp; pwd
-#   /tmp
-# $ mkcd ./foo/bar/baz; pwd
-#   /tmp/foo/bar/baz
-alias mkcd='__mkcd'
-
 # Reenter current directory
 #
 # $ cd /tmp; pwd
@@ -58,6 +50,35 @@ alias wipe='find \( -name "target" -or -name "*.iml" -or -name ".idea" \) -prune
 # Basic rsync flags; protip: use dry run first ('-n' flag)
 alias backup='rsync -amv --delete'
 
-function __mkcd() {
+# Make directory (with parents) and enter it
+#
+# $ cd /tmp; pwd
+#   /tmp
+# $ mkcd ./foo/bar/baz; pwd
+#   /tmp/foo/bar/baz
+function mkcd() {
 	mkdir --parents "$1" && cd "$_"
+}
+
+# Find file in given path or directly in any of its parents
+#
+# $ upfinder /usr/local/bin etc
+#   /usr/local/etc
+# $ upfinder /usr/local/bin tmp
+#   /tmp
+# $ upfinder /usr/local/bin systemd
+#   Could not find: systemd
+function upfinder() {
+	local workdir=$(realpath --no-symlinks $1)
+	local wanted=$2
+	local reference=$(realpath --no-symlinks "$workdir/$wanted")
+
+	if [[ -e ${reference} ]]; then # found
+		echo ${reference}
+	elif [[ ${workdir} == '/' ]]; then # not found
+		echo "Could not find: $wanted" >&2
+		return 42
+	else # try in parent directory
+		upfinder "$workdir/.." ${wanted}
+	fi
 }
