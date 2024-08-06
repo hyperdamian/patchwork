@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-git config --global user.name 'Damian Kołaczyński'
+git config --local user.name 'Damian Kołaczyński'
 echo "Git property 'user.name' set to: $(git config --global user.name)"
 
-git config --global user.email '60873175+hyperdamian@users.noreply.github.com'
+git config --local user.email '60873175+hyperdamian@users.noreply.github.com'
 echo "Git property 'user.email' set to: $(git config --global user.email)"
 
 # Refer to "Connecting to GitHub with SSH" at GitHub Help:
