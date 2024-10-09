@@ -16,10 +16,10 @@ packages="
 	libxml2-utils  `# contains xmllint`
 	mc
 	meld
+	p7zip-full
 	python3-pip
 	sshfs
 	tree
 	"
 
 sudo apt update && sudo apt install ${packages}
-
