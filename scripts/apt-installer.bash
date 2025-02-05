@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-packages="
+apt_packages="
 	build-essential
 	curl
+	docker.io docker-compose-v2
 	gimp
 	gitk
 	glogg
@@ -22,4 +23,13 @@ packages="
 	tree
 	"
 
-sudo apt update && sudo apt install ${packages}
+snap_packages="
+	bruno
+	difftastic
+	"
+
+sudo apt update && sudo apt install ${apt_packages}
+
+snap install ${snap_packages}
+
+curl -f https://zed.dev/install.sh | sh
