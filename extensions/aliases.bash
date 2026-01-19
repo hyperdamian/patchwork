@@ -17,9 +17,12 @@ alias ....='cd ../../../'
 #   /tmp
 # $ reenter; pwd
 #   /tmp
-alias reenter='cd $(pwd)'
+alias reenter='cd "$(pwd)"'
 
-# Print multiline $PATH splitted by colon
+
+alias empty='truncate -s 0'
+
+# Print multiline $PATH split by colon
 #
 # $ path
 #   /usr/bin
@@ -57,7 +60,7 @@ alias backup='rsync -amv --delete'
 # $ mkcd ./foo/bar/baz; pwd
 #   /tmp/foo/bar/baz
 function mkcd() {
-	mkdir --parents "$1" && cd "$_"
+	mkdir -p "$1" && cd "$1"
 }
 
 # Find file in given path or directly in any of its parents
@@ -69,16 +72,16 @@ function mkcd() {
 # $ upfinder /usr/local/bin systemd
 #   Could not find: systemd
 function upfinder() {
-	local workdir=$(realpath --no-symlinks $1)
+	local workdir=$(realpath --no-symlinks "$1")
 	local wanted=$2
 	local reference=$(realpath --no-symlinks "$workdir/$wanted")
 
 	if [[ -e ${reference} ]]; then # found
-		echo ${reference}
+		echo "${reference}"
 	elif [[ ${workdir} == '/' ]]; then # not found
 		echo "Could not find: $wanted" >&2
 		return 42
 	else # try in parent directory
-		upfinder "$workdir/.." ${wanted}
+		upfinder "$workdir/.." "${wanted}"
 	fi
 }
